@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUBG Character Details</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>PUBG Character Details</h1>
+    <div id="character-details">
+        <!-- Character details will be displayed here dynamically -->
+    </div>
+
+    <script>
+        // JavaScript code to fetch character details from the server
+        // You can use Fetch API or other methods to make an AJAX request
+        fetch('/get_pubg_characters')
+            .then(response => response.json())
+            .then(data => {
+                // Render character details on the page
+                renderCharacterDetails(data);
+            })
+            .catch(error => {
+                console.error('Error fetching PUBG character details:', error);
+            });
+
+        // Function to render character details on the page
+        function renderCharacterDetails(charactersData) {
+            // Assuming charactersData is an array of objects containing character details
+            var characterDetails = document.getElementById('character-details');
+
+            // Clear previous content
+            characterDetails.innerHTML = '';
+
+            // Loop through characters data and create HTML elements to display details
+            charactersData.forEach(character => {
+                var characterContainer = document.createElement('div');
+
+                var characterName = document.createElement('h2');
+                characterName.textContent = 'Character Name: ' + character.name;
+                characterContainer.appendChild(characterName);
+
+                // Add more details as needed
+                // Example:
+                var characterLevel = document.createElement('p');
+                characterLevel.textContent = 'Character Level: ' + character.level;
+                characterContainer.appendChild(characterLevel);
+
+                // Add other details similarly
+
+                // Append character container to the main character details container
+                characterDetails.appendChild(characterContainer);
+            });
+        }
+    </script>
+</body>
+</html>
